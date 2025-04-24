@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AQI Prediction Tool</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Air Quality Prediction</h1>
+      <p class="subtitle">Enter pollutant values to calculate the Air Quality Index</p>
+    </div>
+    
+    <form method="post" action="/predict">
+      <div class="form-grid">
+        <div class="input-group">
+          <label for="pm25">PM<sub>2.5</sub> (μg/m³)</label>
+          <input id="pm25" name="pm25" type="number" step="0.01" placeholder="0-500" required>
+        </div>
+        
+        <div class="input-group">
+          <label for="pm10">PM<sub>10</sub> (μg/m³)</label>
+          <input id="pm10" name="pm10" type="number" step="0.01" placeholder="0-600" required>
+        </div>
+        
+        <div class="input-group">
+          <label for="no2">NO<sub>2</sub> (ppb)</label>
+          <input id="no2" name="no2" type="number" step="0.01" placeholder="0-200" required>
+        </div>
+        
+        <div class="input-group">
+          <label for="so2">SO<sub>2</sub> (ppb)</label>
+          <input id="so2" name="so2" type="number" step="0.01" placeholder="0-500" required>
+        </div>
+        
+        <div class="input-group">
+          <label for="co">CO (ppm)</label>
+          <input id="co" name="co" type="number" step="0.01" placeholder="0-50" required>
+        </div>
+        
+        <div class="input-group">
+          <label for="o3">O<sub>3</sub> (ppb)</label>
+          <input id="o3" name="o3" type="number" step="0.01" placeholder="0-500" required>
+        </div>
+        
+        <div class="input-group">
+          <label for="temp">Temperature (°C)</label>
+          <input id="temp" name="temp" type="number" step="0.1" placeholder="-20 to 50" required>
+        </div>
+      </div>
+      
+      <button type="submit">Calculate AQI</button>
+    </form>
+    
+    {% if result %}
+    <div class="result-container">
+      <h2>Prediction Result</h2>
+      <div class="result">{{ result }}</div>
+    </div>
+    {% endif %}
+    
+    <div class="aqi-info">
+      <h3>AQI Categories</h3>
+      <div class="aqi-scale">
+        <div class="aqi-level" style="background-color: #00e400;"><span>0-50</span><span>Good</span></div>
+        <div class="aqi-level" style="background-color: #ffff00;"><span>51-100</span><span>Moderate</span></div>
+        <div class="aqi-level" style="background-color: #ff7e00;"><span>101-150</span><span>Unhealthy for Sensitive Groups</span></div>
+        <div class="aqi-level" style="background-color: #ff0000;"><span>151-200</span><span>Unhealthy</span></div>
+        <div class="aqi-level" style="background-color: #99004c;"><span>201-300</span><span>Very Unhealthy</span></div>
+        <div class="aqi-level" style="background-color: #7e0023;"><span>301+</span><span>Hazardous</span></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
